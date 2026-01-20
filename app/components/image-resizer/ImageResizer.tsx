@@ -349,12 +349,12 @@ export default function ImageResizer() {
         <p className="text-sm text-gray-600">
           Created by{' '}
           <a 
-            href="https://ravi-wt.netlify.app/" 
+            href="https://ravi-portfoliio.netlify.app/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-blue-600 hover:text-blue-800 font-semibold transition-colors"
           >
-            Ravi
+            Ravi's Portfolio
           </a>
         </p>
       </div>
