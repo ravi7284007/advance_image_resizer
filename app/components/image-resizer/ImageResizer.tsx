@@ -343,6 +343,21 @@ export default function ImageResizer() {
       )}
 
       <canvas ref={canvasRef} className="hidden" />
+      
+      {/* Credit Footer */}
+      <div className="mt-8 pt-4 border-t border-gray-200 text-center">
+        <p className="text-sm text-gray-600">
+          Created by{' '}
+          <a 
+            href="https://ravi-wt.netlify.app/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 font-semibold transition-colors"
+          >
+            Ravi
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
