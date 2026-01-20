@@ -87,9 +87,6 @@ export default function ImageResizer() {
         // Enhanced quality settings
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
-        ctx.textRenderingOptimization = 'optimizeQuality';
-        ctx.antialias = 'subpixel';
-        ctx.patternQuality = 'best';
         
         if (settings.removeBackground) {
           await drawImageWithoutBackground(img, ctx);
@@ -215,7 +212,6 @@ export default function ImageResizer() {
     // Enhanced quality settings
     context.imageSmoothingEnabled = true;
     context.imageSmoothingQuality = 'high';
-    context.textRenderingOptimization = 'optimizeQuality';
 
     const ratio = img.width / img.height;
     const blur = settings.blurIntensity;
