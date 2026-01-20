@@ -15,7 +15,7 @@ const defaultSettings: ImageResizerSettings = {
   overlayOpacity: 0.08,
   overlayColor: '#000000',
   outputFormat: 'png',
-  quality: 92,
+  quality: 95,
   watermarkText: '',
   watermarkPosition: 'bottom-center',
   watermarkSize: 24,

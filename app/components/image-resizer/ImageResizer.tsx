@@ -74,7 +74,7 @@ export default function ImageResizer() {
           return;
         }
 
-        const DPR = window.devicePixelRatio || 1;
+        const DPR = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
         const canvasWidth = settings.outputWidth;
         const canvasHeight = settings.outputHeight;
         
@@ -83,6 +83,13 @@ export default function ImageResizer() {
         canvas.style.width = canvasWidth + 'px';
         canvas.style.height = canvasHeight + 'px';
         ctx.scale(DPR, DPR);
+        
+        // Enhanced quality settings
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.textRenderingOptimization = 'optimizeQuality';
+        ctx.antialias = 'subpixel';
+        ctx.patternQuality = 'best';
         
         if (settings.removeBackground) {
           await drawImageWithoutBackground(img, ctx);
@@ -204,8 +211,11 @@ export default function ImageResizer() {
     const canvasHeight = settings.outputHeight;
     
     context.clearRect(0, 0, canvasWidth, canvasHeight);
+    
+    // Enhanced quality settings
     context.imageSmoothingEnabled = true;
     context.imageSmoothingQuality = 'high';
+    context.textRenderingOptimization = 'optimizeQuality';
 
     const ratio = img.width / img.height;
     const blur = settings.blurIntensity;
@@ -250,7 +260,8 @@ export default function ImageResizer() {
     const x = (canvasWidth - fgW) / 2;
     const y = (canvasHeight - fgH) / 2;
 
-    context.filter = `brightness(${bright}%) contrast(${contr}%) saturate(${sat}%)`;
+    // Apply sharpening filter for better texture
+    context.filter = `brightness(${bright}%) contrast(${contr + 5}%) saturate(${sat}%) contrast(1.1)`;
     context.drawImage(img, x, y, fgW, fgH);
 
     if (border > 0) {
