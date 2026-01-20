@@ -172,7 +172,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Ravi Kumar**
 - Portfolio: [https://ravi-wt.netlify.app/](https://ravi-wt.netlify.app/)
-- GitHub: [@yourusername](https://github.com/yourusername)
+- GitHub: [@yourusername](https://github.com/ravi7284007)
 
 ## 🙏 Acknowledgments
 
