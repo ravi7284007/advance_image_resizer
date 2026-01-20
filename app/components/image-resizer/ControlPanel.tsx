@@ -12,8 +12,12 @@ export default function ControlPanel({ settings, onSettingsChange, onReset }: Co
   const handleBackgroundImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Handle background image upload logic here
-      console.log('Background image uploaded:', file);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result as string;
+        onSettingsChange({ backgroundImage: result });
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -26,8 +30,8 @@ export default function ControlPanel({ settings, onSettingsChange, onReset }: Co
           type="number"
           min="100"
           max="5000"
-          value={settings.outputWidth}
-          onChange={(e) => onSettingsChange({ outputWidth: parseInt(e.target.value) })}
+          value={settings.outputWidth || 832}
+          onChange={(e) => onSettingsChange({ outputWidth: parseInt(e.target.value) || 832 })}
           className="w-full p-2 border border-gray-300 rounded-md text-sm"
         />
       </div>
@@ -38,8 +42,8 @@ export default function ControlPanel({ settings, onSettingsChange, onReset }: Co
           type="number"
           min="100"
           max="5000"
-          value={settings.outputHeight}
-          onChange={(e) => onSettingsChange({ outputHeight: parseInt(e.target.value) })}
+          value={settings.outputHeight || 832}
+          onChange={(e) => onSettingsChange({ outputHeight: parseInt(e.target.value) || 832 })}
           className="w-full p-2 border border-gray-300 rounded-md text-sm"
         />
       </div>
@@ -90,6 +94,21 @@ export default function ControlPanel({ settings, onSettingsChange, onReset }: Co
                   onChange={handleBackgroundImageUpload}
                   className="w-full p-1 text-xs border border-gray-300 rounded-md"
                 />
+                {settings.backgroundImage && (
+                  <div className="mt-2">
+                    <img 
+                      src={settings.backgroundImage} 
+                      alt="Background preview" 
+                      className="w-full h-16 object-cover rounded border"
+                    />
+                    <button
+                      onClick={() => onSettingsChange({ backgroundImage: null })}
+                      className="mt-1 text-xs text-red-600 hover:text-red-800"
+                    >
+                      Remove background image
+                    </button>
+                  </div>
+                )}
                 <p className="text-xs text-gray-500 mt-1">Image will be stretched to fit canvas</p>
               </div>
             )}
@@ -222,6 +241,22 @@ export default function ControlPanel({ settings, onSettingsChange, onReset }: Co
           className="w-full"
         />
       </div>
+
+      {settings.watermarkPosition === 'repeat' && (
+        <div className="space-y-2">
+          <label className="block text-sm font-semibold text-gray-700">
+            Watermark Spacing <span className="text-blue-600 font-semibold">{settings.repeatSpacing}px</span>
+          </label>
+          <input
+            type="range"
+            min="50"
+            max="300"
+            value={settings.repeatSpacing}
+            onChange={(e) => onSettingsChange({ repeatSpacing: parseInt(e.target.value) })}
+            className="w-full"
+          />
+        </div>
+      )}
 
       <div className="space-y-2">
         <label className="block text-sm font-semibold text-gray-700">

@@ -116,9 +116,19 @@ export default function ImageResizer() {
     
     context.clearRect(0, 0, canvasWidth, canvasHeight);
     
+    // Handle different background types
     if (settings.bgType === 'color') {
       context.fillStyle = settings.backgroundColor;
       context.fillRect(0, 0, canvasWidth, canvasHeight);
+    } else if (settings.bgType === 'image' && settings.backgroundImage) {
+      const bgImg = new Image();
+      await new Promise((resolve) => {
+        bgImg.onload = () => {
+          context.drawImage(bgImg, 0, 0, canvasWidth, canvasHeight);
+          resolve(null);
+        };
+        bgImg.src = settings.backgroundImage!;
+      });
     }
     
     // Create temp canvas for background removal

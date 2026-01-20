@@ -4,6 +4,7 @@ export interface ImageResizerSettings {
   removeBackground: boolean;
   bgType: 'transparent' | 'color' | 'image';
   backgroundColor: string;
+  backgroundImage: string | null;
   blurIntensity: number;
   fadeEffect: number;
   overlayOpacity: number;

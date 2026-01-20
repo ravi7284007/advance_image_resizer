@@ -9,6 +9,7 @@ const defaultSettings: ImageResizerSettings = {
   removeBackground: false,
   bgType: 'transparent',
   backgroundColor: '#ffffff',
+  backgroundImage: null,
   blurIntensity: 26,
   fadeEffect: 60,
   overlayOpacity: 0.08,
@@ -48,7 +49,10 @@ export function useImageResizerSettings() {
   const updateSettings = (newSettings: Partial<ImageResizerSettings>) => {
     const updated = { ...settings, ...newSettings };
     setSettings(updated);
-    localStorage.setItem('imageResizerSettings', JSON.stringify(updated));
+    
+    // Exclude backgroundImage from localStorage to avoid quota issues
+    const { backgroundImage, ...settingsToSave } = updated;
+    localStorage.setItem('imageResizerSettings', JSON.stringify(settingsToSave));
   };
 
   const resetSettings = () => {
